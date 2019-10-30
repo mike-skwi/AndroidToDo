@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:background="#ffffff"
     android:orientation="vertical">
 
@@ -22,8 +23,8 @@
 
     <TextView
         android:id="@+id/timeTextRec"
-        android:layout_width="122dp"
-        android:layout_height="22dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginLeft="19dp"
         android:layout_marginTop="16dp"

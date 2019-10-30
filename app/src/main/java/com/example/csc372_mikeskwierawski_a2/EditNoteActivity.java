@@ -1,11 +1,13 @@
 package com.example.csc372_mikeskwierawski_a2;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,11 +16,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.nio.channels.InterruptedByTimeoutException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class EditNoteActivity extends AppCompatActivity {
 
     TextView title;
     TextView body;
+
+    LocalDateTime myDateObj = LocalDateTime.now();
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    String formattedDate = myDateObj.format(myFormatObj);
+
+
     String[] noteArray = new String[3];
 
     @Override
@@ -41,8 +53,10 @@ public class EditNoteActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.saveIcon:
 //                Toast.makeText(this,"Save Selected",Toast.LENGTH_SHORT).show();
@@ -60,7 +74,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
                     noteArray[0] = title.getText().toString();
                     noteArray[1] = body.getText().toString();
-                    noteArray[2] = "time : ) ";
+                    noteArray[2] = formattedDate;
 
                     data.putExtra("NOTE", noteArray);
                     setResult(RESULT_OK, data);
@@ -77,31 +91,35 @@ public class EditNoteActivity extends AppCompatActivity {
 //        Toast.makeText(this,"Put a confirmation message here..", Toast.LENGTH_SHORT).show();
         super.onBackPressed();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder((this));
+        AlertDialog.Builder builder = new AlertDialog.Builder((EditNoteActivity.this));
 
 
         builder.setMessage("Do you want to leave without saving?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent emptyIntent = new Intent();
-                        setResult(RESULT_CANCELED,emptyIntent);
-
-                        dialogInterface.cancel();
-                        finish();
+                        dialogInterface.dismiss();
+                        finishActivity(RESULT_CANCELED);
+//                        Intent emptyIntent = new Intent(null,EditNoteActivity.class);
+//                        setResult(RESULT_CANCELED,emptyIntent);
+//                        finish();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int o) {
 //                alert.dismiss();
-                dialogInterface.cancel();
+
+                dialogInterface.dismiss();
+
             }
         });
-                AlertDialog alert = builder.create();
+//                AlertDialog alert = builder.create();
+//                alert.show();
 
-                alert.show();
+//                builder.create().show();
 
-
+                builder.setCancelable(false);
+                builder.show();
     }
 
 }
