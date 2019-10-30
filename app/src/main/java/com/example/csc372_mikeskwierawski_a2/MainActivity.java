@@ -9,12 +9,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.JsonWriter;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
@@ -60,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                Toast.makeText(this,"Add Selected",Toast.LENGTH_SHORT).show();
                 Intent intentEdit = new Intent(MainActivity.this, EditNoteActivity.class);
                 startActivityForResult(intentEdit,editRequestCode);
-
                 return true;
             case R.id.infoIcon:
                 Intent intentAbout = new Intent(MainActivity.this, AboutActivity.class);
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().setTitle("Notes: " + numberOfNotes);
         }
         else{
-            Toast.makeText(this,"Extras null", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -124,5 +126,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
+
+//    @Override
+//    public void onPause(View view){
+//
+//    }
+
+//    public void writeJsonStream(OutputStream out, List<Message> messages) throws IOException {
+//        JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
+//        writer.setIndent("  ");
+//        writeMessagesArray(writer, messages);
+//        writer.close();
+//    }
+//
+//    public void writeMessagesArray(JsonWriter writer, List<Message> messages) throws IOException {
+//        writer.beginArray();
+//        for (Message message : messages) {
+//            writeMessage(writer, message);
+//        }
+//        writer.endArray();
+//    }
+//
+//    public void writeMessage(JsonWriter writer, Message message) throws IOException {
+//        writer.beginObject();
+//        writer.name("title");
+//        writer.name("body");
+//        writer.name("time");
+                // indivObject.value() get parts of that object??
+
+//        writeUser(writer, message.getUser());
+//        writer.endObject();
+//    }
+//
+//    public void writeUser(JsonWriter writer, User user) throws IOException {
+//        writer.beginObject();
+//        writer.name("name").value(user.getName());
+//        writer.name("followers_count").value(user.getFollowersCount());
+//        writer.endObject();
+//    }
+//
+//    public void writeDoublesArray(JsonWriter writer, List<Double> doubles) throws IOException {
+//        writer.beginArray();
+//        for (Double value : doubles) {
+//            writer.value(value);
+//        }
+//        writer.endArray();
+//    }
+
+
 
 }
